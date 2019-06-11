@@ -28,6 +28,7 @@ let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
 let time = 10;
+let guess = []
 
 //countdown
 function timer () {
@@ -35,51 +36,50 @@ function timer () {
     $('#timer-display').text(time + ' Seconds Remaining')
 }
 
+//function to check answer and display results
+function isCorrect() {
+    if (guess[0] === correctAnswer.q1) {
+        correct++;
+    } else {
+        incorrect++;
+    }
+}
+
 //quiz
 function quiz () {
     $('.answer-btn').show()
+    let guess = []
     let countDown = setInterval(timer, 1000)
-    $('#timer-display').text(time + ' Seconds Remaining')
-    $('#question-display').text(questions.q1)
-    $('#answer-1').text(options.q1[0])
-    $('#answer-2').text(options.q1[1])
-    $('#answer-3').text(options.q1[2])
-    $('#answer-4').text(options.q1[3])
+        $('#timer-display').text(time + ' Seconds Remaining')
+        $('#question-display').text(questions.q1)
+        $('#answer-1').text(options.q1[0])
+        $('#answer-2').text(options.q1[1])
+        $('#answer-3').text(options.q1[2])
+        $('#answer-4').text(options.q1[3])
+    //Click events for answer buttons
     $('#answer-1').on("click", function (){
-        if ($('#answer-1').text() === correctAnswer.q1) {
-            clearInterval(countDown);
-            correct++;
-        } else {
-            clearInterval(countDown);
-            incorrect++;
-        }
+        let userGuess = $('#answer-1').text()
+        guess.push(userGuess);
+        clearInterval(countDown);
+        isCorrect();
     })
     $('#answer-2').on("click", function (){
-        if ($('#answer-2').text() === correctAnswer.q1) {
-            clearInterval(countDown);
-            correct++;
-        } else {
-            clearInterval(countDown);
-            incorrect++;
-        }
+        let userGuess = $('#answer-1').text()
+        guess.push(userGuess);
+        clearInterval(countDown);
+        isCorrect();
     })
     $('#answer-3').on("click", function (){
-        if ($('#answer-3').text() === correctAnswer.q1) {
-            clearInterval(countDown); 
-            correct++;
-        } else {
+        let userGuess = $('#answer-1').text()
+            guess.push(userGuess);
             clearInterval(countDown);
-            incorrect++;
-        }
+            isCorrect();
     })
     $('#answer-4').on("click", function (){
-        if ($('#answer-4').text() === correctAnswer.q1) {
+        let userGuess = $('#answer-1').text()
+        guess.push(userGuess);
             clearInterval(countDown);
-            correct++;
-        } else {
-            clearInterval(countDown);
-            incorrect++;
-        }
+            isCorrect();
     })
 }
 
