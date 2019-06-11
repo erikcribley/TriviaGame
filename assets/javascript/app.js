@@ -1,6 +1,6 @@
 //Question&Answer Objects
 const questions = {
-    q1: "Question1",
+    q1: "What's 2 + 2?",
     q2: "Question2",
     q3: "Question3",
     q4: "Question4",
@@ -8,7 +8,7 @@ const questions = {
 }
 
 const options = {
-    q1: ["Answer1", "Answer2", "Answer3", "Answer4"],
+    q1: ["4", "22", "undefined", "NaN"],
     q2: ["Answer1", "Answer2", "Answer3", "Answer4"],
     q3: ["Answer1", "Answer2", "Answer3", "Answer4"],
     q4: ["Answer1", "Answer2", "Answer3", "Answer4"],
@@ -16,18 +16,18 @@ const options = {
 }
 
 const correctAnswer = {
-    q1: "Answer1",
-    q2: "Answer3",
-    q3: "Answer2",
-    q4: "Answer2",
-    q5: "Answer1"
+    q1: "4",
+    q2: 2,
+    q3: 1,
+    q4: 1,
+    q5: 0
 }
 
 //global variables
 let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
-let time = 30;
+let time = 10;
 
 //countdown
 function timer () {
@@ -37,16 +37,55 @@ function timer () {
 
 //quiz
 function quiz () {
-    setInterval(timer, 1000)
+    $('.answer-btn').show()
+    let countDown = setInterval(timer, 1000)
     $('#timer-display').text(time + ' Seconds Remaining')
     $('#question-display').text(questions.q1)
-    for (i = 0; i < options.q1.length; i++) {
-        $('#answers-display').append($('<button>' + options.q1[i] + '</button>')).addClass()
-    }
-
+    $('#answer-1').text(options.q1[0])
+    $('#answer-2').text(options.q1[1])
+    $('#answer-3').text(options.q1[2])
+    $('#answer-4').text(options.q1[3])
+    $('#answer-1').on("click", function (){
+        if ($('#answer-1').text() === correctAnswer.q1) {
+            clearInterval(countDown);
+            correct++;
+        } else {
+            clearInterval(countDown);
+            incorrect++;
+        }
+    })
+    $('#answer-2').on("click", function (){
+        if ($('#answer-2').text() === correctAnswer.q1) {
+            clearInterval(countDown);
+            correct++;
+        } else {
+            clearInterval(countDown);
+            incorrect++;
+        }
+    })
+    $('#answer-3').on("click", function (){
+        if ($('#answer-3').text() === correctAnswer.q1) {
+            clearInterval(countDown); 
+            correct++;
+        } else {
+            clearInterval(countDown);
+            incorrect++;
+        }
+    })
+    $('#answer-4').on("click", function (){
+        if ($('#answer-4').text() === correctAnswer.q1) {
+            clearInterval(countDown);
+            correct++;
+        } else {
+            clearInterval(countDown);
+            incorrect++;
+        }
+    })
 }
 
-// start button
+$('.answer-btn').hide()
+
+//start button
 $('#start').on("click", function () {
     $('#start').hide();
     quiz()    
