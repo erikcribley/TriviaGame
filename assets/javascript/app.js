@@ -37,11 +37,23 @@ function timer () {
 }
 
 //function to check answer and display results
-function isCorrect() {
-    if (guess[0] === correctAnswer.q1) {
+function isCorrect(val) {
+    if (val === correctAnswer.q1) {
         correct++;
+        $('#question-display')
+            .empty()
+            .text("CORRECT!")
+        $('.answer-btn').hide()
+        console.log(val)
+        console.log(correctAnswer.q1)
     } else {
         incorrect++;
+        $('#question-display')
+            .empty()
+            .text("No, Idiot!")
+        $('.answer-btn').hide()
+        console.log(val)
+        console.log(correctAnswer.q1)
     }
 }
 
@@ -59,27 +71,23 @@ function quiz () {
     //Click events for answer buttons
     $('#answer-1').on("click", function (){
         let userGuess = $('#answer-1').text()
-        guess.push(userGuess);
         clearInterval(countDown);
-        isCorrect();
+        isCorrect(userGuess);
     })
     $('#answer-2').on("click", function (){
-        let userGuess = $('#answer-1').text()
-        guess.push(userGuess);
+        let userGuess = $('#answer-2').text()
         clearInterval(countDown);
-        isCorrect();
+        isCorrect(userGuess);
     })
     $('#answer-3').on("click", function (){
-        let userGuess = $('#answer-1').text()
-            guess.push(userGuess);
+        let userGuess = $('#answer-3').text()
             clearInterval(countDown);
-            isCorrect();
+            isCorrect(userGuess);
     })
     $('#answer-4').on("click", function (){
-        let userGuess = $('#answer-1').text()
-        guess.push(userGuess);
+        let userGuess = $('#answer-4').text()
             clearInterval(countDown);
-            isCorrect();
+            isCorrect(userGuess);
     })
 }
 
