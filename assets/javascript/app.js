@@ -1,34 +1,52 @@
-//Question&Answer Objects
-const questions = {
-    q1: "What's 2 + 2?",
-    q2: "Question2",
-    q3: "Question3",
-    q4: "Question4",
-    q5: "Question5"
-}
-
-const options = {
-    q1: ["4", "22", "undefined", "NaN"],
-    q2: ["Answer1", "Answer2", "Answer3", "Answer4"],
-    q3: ["Answer1", "Answer2", "Answer3", "Answer4"],
-    q4: ["Answer1", "Answer2", "Answer3", "Answer4"],
-    q5: ["Answer1", "Answer2", "Answer3", "Answer4"],
-}
-
-const correctAnswer = {
-    q1: "4",
-    q2: 2,
-    q3: 1,
-    q4: 1,
-    q5: 0
-}
+//Question arrays
+const questions = [
+    {
+        question: "Who was the first WWF World Heavyweight Champion?",
+        a: "Buddy Rogers",
+        b: "Bruno Sammartino",
+        c: "Lou Thesz",
+        d: "Pat O'Connor",
+        correct: "Buddy Rogers"
+    },
+    {
+        question: "Who was the longest reigning WWF World Heavyweight Champion?",
+        a: "Hulk Hogan",
+        b: "Bruno Sammartino",
+        c: "Bob Backlund",
+        d: "Pedro Morales",
+        correct: "Bruno Sammartino"
+    },
+    {
+        question: "Who was the first WWF Intercontinental Champion?",
+        a: "Ken Patera",
+        b: "Don Muraco",
+        c: "Pat Patterson",
+        d: "Pedro Morales",
+        correct: "Pat Patterson",
+    },
+    {
+        question: "Who was the longest reigning WWF Intercontinental Champion?",
+        a: "The Ultimate Warrior",
+        b: "Randy Savage",
+        c: "The Honky Tonk Man",
+        d: "Pedro Morales",
+        correct: "The Honky Tonk Man",
+    },
+    {
+        question: "Who was first to hold the WWF World Heavyweight Championship and the WWF Intercontnental Championship concurrently?",
+        a: "The Ultimate Warrior",
+        b: "Randy Savage",
+        c: "Hulk Hogan",
+        d: "Pedro Morales",
+        correct: "The Ultimate Warrior"
+    }
+]
 
 //global variables
 let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
 let time = 10;
-let guess = []
 
 //countdown
 function timer () {
@@ -38,22 +56,20 @@ function timer () {
 
 //function to check answer and display results
 function isCorrect(val) {
-    if (val === correctAnswer.q1) {
+    if (val === questions[0].correct) {
         correct++;
         $('#question-display')
             .empty()
             .text("CORRECT!")
         $('.answer-btn').hide()
-        console.log(val)
-        console.log(correctAnswer.q1)
+
     } else {
         incorrect++;
         $('#question-display')
             .empty()
             .text("No, Idiot!")
         $('.answer-btn').hide()
-        console.log(val)
-        console.log(correctAnswer.q1)
+       
     }
 }
 
@@ -63,11 +79,12 @@ function quiz () {
     let guess = []
     let countDown = setInterval(timer, 1000)
         $('#timer-display').text(time + ' Seconds Remaining')
-        $('#question-display').text(questions.q1)
-        $('#answer-1').text(options.q1[0])
-        $('#answer-2').text(options.q1[1])
-        $('#answer-3').text(options.q1[2])
-        $('#answer-4').text(options.q1[3])
+        $('#question-display').text(questions[0].question)
+        $('#answer-1').text(questions[0].a)
+        $('#answer-2').text(questions[0].b)
+        $('#answer-3').text(questions[0].c)
+        $('#answer-4').text(questions[0].d)
+
     //Click events for answer buttons
     $('#answer-1').on("click", function (){
         let userGuess = $('#answer-1').text()
