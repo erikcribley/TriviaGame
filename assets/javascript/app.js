@@ -6,7 +6,7 @@ const questions = [
         b: "Bruno Sammartino",
         c: "Lou Thesz",
         d: "Pat O'Connor",
-        correct: "Buddy Rogers"
+        correct: "Buddy Rogers",
     },
     {
         question: "Who was the longest reigning WWF World Heavyweight Champion?",
@@ -55,56 +55,59 @@ function timer () {
 }
 
 //function to check answer and display results
-function isCorrect(val) {
-    if (val === questions[0].correct) {
+function isCorrect(val, num) {
+    if (val === questions[num].correct) {
         correct++;
         $('#question-display')
             .empty()
             .text("CORRECT!")
-        $('.answer-btn').hide()
-
+        $('.answer-btn')
+            .hide()
+            console.log(val)
+            console.log(num)
     } else {
         incorrect++;
         $('#question-display')
             .empty()
-            .text("No, Idiot!")
-        $('.answer-btn').hide()
-       
+            .text("INCORRECT")
+        $('.answer-btn')
+            .hide()
     }
+    let newNum = num += 1 
+    setTimeout(quiz, 1000, newNum)
 }
 
 //quiz
-function quiz () {
+function quiz (num) {
     $('.answer-btn').show()
-    let guess = []
     let countDown = setInterval(timer, 1000)
         $('#timer-display').text(time + ' Seconds Remaining')
-        $('#question-display').text(questions[0].question)
-        $('#answer-1').text(questions[0].a)
-        $('#answer-2').text(questions[0].b)
-        $('#answer-3').text(questions[0].c)
-        $('#answer-4').text(questions[0].d)
+        $('#question-display').text(questions[num].question)
+        $('#answer-1').text(questions[num].a)
+        $('#answer-2').text(questions[num].b)
+        $('#answer-3').text(questions[num].c)
+        $('#answer-4').text(questions[num].d)
 
     //Click events for answer buttons
     $('#answer-1').on("click", function (){
         let userGuess = $('#answer-1').text()
         clearInterval(countDown);
-        isCorrect(userGuess);
+        isCorrect(userGuess, num);
     })
     $('#answer-2').on("click", function (){
         let userGuess = $('#answer-2').text()
         clearInterval(countDown);
-        isCorrect(userGuess);
+        isCorrect(userGuess, num);
     })
     $('#answer-3').on("click", function (){
         let userGuess = $('#answer-3').text()
             clearInterval(countDown);
-            isCorrect(userGuess);
+            isCorrect(userGuess, num);
     })
     $('#answer-4').on("click", function (){
         let userGuess = $('#answer-4').text()
             clearInterval(countDown);
-            isCorrect(userGuess);
+            isCorrect(userGuess, num);
     })
 }
 
@@ -113,5 +116,5 @@ $('.answer-btn').hide()
 //start button
 $('#start').on("click", function () {
     $('#start').hide();
-    quiz()    
+    quiz(0)    
 });
