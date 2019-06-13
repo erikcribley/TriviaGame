@@ -56,15 +56,20 @@ function timer () {
 
 //function to check answer and display results
 function isCorrect(val, num) {
-    if (val === questions[num].correct) {
+    if (val === "timeout") {        
+        unanswered++;
+        $('#question-display')
+            .empty()
+            .text("TIME'S UP")
+        $('.answer-btn')
+            .hide()
+    } else if (val === questions[num].correct) {
         correct++;
         $('#question-display')
             .empty()
             .text("CORRECT!")
         $('.answer-btn')
             .hide()
-            console.log(val)
-            console.log(num)
     } else {
         incorrect++;
         $('#question-display')
@@ -74,7 +79,7 @@ function isCorrect(val, num) {
             .hide()
     }
     let newNum = num += 1 
-    setTimeout(quiz, 1000, newNum)
+    setTimeout(quiz, 3000, newNum)
 }
 
 //quiz
@@ -88,25 +93,31 @@ function quiz (num) {
         $('#answer-3').text(questions[num].c)
         $('#answer-4').text(questions[num].d)
 
+    let timeUp = setTimeout(isCorrect, 10000, "timeout", num)
+
     //Click events for answer buttons
     $('#answer-1').on("click", function (){
         let userGuess = $('#answer-1').text()
         clearInterval(countDown);
+        clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-2').on("click", function (){
         let userGuess = $('#answer-2').text()
         clearInterval(countDown);
+        clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-3').on("click", function (){
         let userGuess = $('#answer-3').text()
             clearInterval(countDown);
+            clearTimeout(timeUp);
             isCorrect(userGuess, num);
     })
     $('#answer-4').on("click", function (){
         let userGuess = $('#answer-4').text()
             clearInterval(countDown);
+            clearTimeout(timeUp);
             isCorrect(userGuess, num);
     })
 }
