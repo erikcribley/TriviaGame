@@ -1,4 +1,4 @@
-//Question arrays
+//Question array
 const questions = [
     {
         question: "Who was the first WWF World Heavyweight Champion?",
@@ -7,6 +7,7 @@ const questions = [
         c: "Lou Thesz",
         d: "Pat O'Connor",
         correct: "Buddy Rogers",
+        info: "Buddy Rogers was recognized as first WWF Champion on April, 11 1963."
     },
     {
         question: "Who was the longest reigning WWF World Heavyweight Champion?",
@@ -14,7 +15,8 @@ const questions = [
         b: "Bruno Sammartino",
         c: "Bob Backlund",
         d: "Pedro Morales",
-        correct: "Bruno Sammartino"
+        correct: "Bruno Sammartino",
+        info: "Bruno Sammartino's first reign lasted 2,803 days."
     },
     {
         question: "Who was the first WWF Intercontinental Champion?",
@@ -23,6 +25,7 @@ const questions = [
         c: "Pat Patterson",
         d: "Pedro Morales",
         correct: "Pat Patterson",
+        info: "Pat Patterson unified the North American and South American Championships on September 1, 1979."
     },
     {
         question: "Who was the longest reigning WWF Intercontinental Champion?",
@@ -31,6 +34,7 @@ const questions = [
         c: "The Honky Tonk Man",
         d: "Pedro Morales",
         correct: "The Honky Tonk Man",
+        info: "The Honky Tonk Man held the Intercontinental Championship for 454 days."
     },
     {
         question: "Who was first to hold the WWF World Heavyweight Championship and the WWF Intercontnental Championship concurrently?",
@@ -38,7 +42,8 @@ const questions = [
         b: "Randy Savage",
         c: "Hulk Hogan",
         d: "Pedro Morales",
-        correct: "The Ultimate Warrior"
+        correct: "The Ultimate Warrior",
+        info: "The Ultimate Warrior was Intercontinental Champion when he defeated Hulk Hogan for the WWF Championship at Wrestlemania VI."
     }
 ]
 
@@ -54,29 +59,39 @@ function timer () {
     $('#timer-display').text(time + ' Seconds Remaining')
 }
 
+function gameOver() {
+
+}
+
 //function to check answer and display results
 function isCorrect(val, num) {
     if (val === "timeout") {        
         unanswered++;
         $('#question-display')
-            .empty()
             .text("TIME'S UP")
         $('.answer-btn')
             .hide()
+        $('#answer-info')
+            .show()
+            .text(questions[num].info)
     } else if (val === questions[num].correct) {
         correct++;
         $('#question-display')
-            .empty()
             .text("CORRECT!")
         $('.answer-btn')
             .hide()
+        $('#answer-info')
+            .show()
+            .text(questions[num].info)
     } else {
         incorrect++;
         $('#question-display')
-            .empty()
             .text("INCORRECT")
         $('.answer-btn')
             .hide()
+        $('#answer-info')
+            .show()
+            .text(questions[num].info)
     }
     let newNum = num += 1 
     setTimeout(quiz, 3000, newNum)
@@ -84,44 +99,59 @@ function isCorrect(val, num) {
 
 //quiz
 function quiz (num) {
-    $('.answer-btn').show()
-    let countDown = setInterval(timer, 1000)
-        $('#timer-display').text(time + ' Seconds Remaining')
-        $('#question-display').text(questions[num].question)
-        $('#answer-1').text(questions[num].a)
-        $('#answer-2').text(questions[num].b)
-        $('#answer-3').text(questions[num].c)
-        $('#answer-4').text(questions[num].d)
+    if (num === 5) {
+        gameOver()
+    } else {
+        $('#answer-info')
+            .hide()
+        $('.answer-btn')
+            .show()
+        time = 10
+        let countDown = setInterval(timer, 1000);
+        $('#timer-display')
+            .text(time + ' Seconds Remaining')
+        $('#question-display')
+            .text(questions[num].question)
+        $('#answer-1')
+            .text(questions[num].a)
+        $('#answer-2')
+            .text(questions[num].b)
+        $('#answer-3')
+            .text(questions[num].c)
+        $('#answer-4')
+            .text(questions[num].d)
+    
+        let timeUp = setTimeout(isCorrect, 10000, "timeout", num)
 
-    let timeUp = setTimeout(isCorrect, 10000, "timeout", num)
-
-    //Click events for answer buttons
-    $('#answer-1').on("click", function (){
-        let userGuess = $('#answer-1').text()
-        clearInterval(countDown);
-        clearTimeout(timeUp);
-        isCorrect(userGuess, num);
-    })
-    $('#answer-2').on("click", function (){
-        let userGuess = $('#answer-2').text()
-        clearInterval(countDown);
-        clearTimeout(timeUp);
-        isCorrect(userGuess, num);
-    })
-    $('#answer-3').on("click", function (){
-        let userGuess = $('#answer-3').text()
+        //Click events for answer buttons
+        $('#answer-1').on("click", function (){
+            let userGuess = $('#answer-1').text()
             clearInterval(countDown);
             clearTimeout(timeUp);
             isCorrect(userGuess, num);
-    })
-    $('#answer-4').on("click", function (){
-        let userGuess = $('#answer-4').text()
+        })
+        $('#answer-2').on("click", function (){
+            let userGuess = $('#answer-2').text()
             clearInterval(countDown);
             clearTimeout(timeUp);
             isCorrect(userGuess, num);
-    })
+        })
+        $('#answer-3').on("click", function (){
+            let userGuess = $('#answer-3').text()
+            clearInterval(countDown)
+            clearTimeout(timeUp);
+            isCorrect(userGuess, num);
+        })
+        $('#answer-4').on("click", function (){
+            let userGuess = $('#answer-4').text()
+            clearInterval(countDown);
+            clearTimeout(timeUp);
+            isCorrect(userGuess, num);
+        })
+    }
 }
 
+//hide answer buttons
 $('.answer-btn').hide()
 
 //start button
