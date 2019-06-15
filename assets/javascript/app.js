@@ -46,22 +46,17 @@ const questions = [
         info: "The Ultimate Warrior was Intercontinental Champion when he defeated Hulk Hogan for the WWF Championship at Wrestlemania VI."
     }
 ]
-
 //global variables
 let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
 let time = 10;
-let isRunning = false;
-
 //countdown
-function timer() {
+function timer () {
     time--;
     $('#timer-display').text(time + ' Seconds Remaining')
 }
-
 function gameOver() {
-    clearInterval(countDown)
     $('#question-display')
         .text("GAME OVER")
     $('.answer-btn')
@@ -74,7 +69,6 @@ function gameOver() {
         .append("<p> Play Again? </p>")
     $('#start').show();  
 }
-
 //function to check answer and display results
 function isCorrect(val, num) {
     if (val === "timeout") {        
@@ -112,7 +106,6 @@ function isCorrect(val, num) {
         setTimeout(quiz, 3000, newNum)
     }
 }
-
 //quiz
 function quiz (num) {
     $('#answer-info')
@@ -120,10 +113,7 @@ function quiz (num) {
     $('.answer-btn')
         .show()
     time = 10
-    if (isRunning === false) {
-        countDown = setInterval(timer, 1000);
-        isRunning = true;
-    }
+    let countDown = setInterval(timer, 1000)
     $('#timer-display')
         .text(time + ' Seconds Remaining')
     $('#question-display')
@@ -137,42 +127,35 @@ function quiz (num) {
     $('#answer-4')
         .text(questions[num].d)
     
-    timeUp = setTimeout(isCorrect, 10000, "timeout", num)
-
+    const timeUp = setTimeout(isCorrect, 10000, "timeout", num)
     //Click events for answer buttons
     $('#answer-1').on("click", function (){
         let userGuess = $('#answer-1').text()
-        clearInterval(countDown);
-        isRunning = false;
+        clearInterval(countDown)
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-2').on("click", function (){
         let userGuess = $('#answer-2').text()
         clearInterval(countDown);
-        isRunning = false;
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-3').on("click", function (){
         let userGuess = $('#answer-3').text()
-        clearInterval(countDown);
-        isRunning = false;
+        clearInterval(countDown)
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-4').on("click", function (){
         let userGuess = $('#answer-4').text()
-        clearInterval(countDown);
-        isRunning = false;
+        clearInterval(countDown)
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
 }
-
 //hide answer buttons
 $('.answer-btn').hide()
-
 //start & reset button
 $('#start').on("click", function () {
     $('#start').hide();
@@ -180,7 +163,7 @@ $('#start').on("click", function () {
     let incorrect = 0;
     let unanswered = 0;
     let time = 10;
-    quiz(0) 
+    quiz(0)
 });
 
 // What's not working and how I intend to fix it 
@@ -216,3 +199,5 @@ $('#start').on("click", function () {
 
 // I plan to continue working on these issues until resolved. Regretfully, I was unable to style the page with CSS, as these
 // javascript issues persisted and functionality took precedence over aesthetics.
+
+//UPDATE: Fixing setInterval caused other timing errors
