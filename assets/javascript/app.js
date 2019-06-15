@@ -52,14 +52,16 @@ let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
 let time = 10;
+let isRunning = false;
 
 //countdown
-function timer () {
+function timer() {
     time--;
     $('#timer-display').text(time + ' Seconds Remaining')
 }
 
 function gameOver() {
+    clearInterval(countDown)
     $('#question-display')
         .text("GAME OVER")
     $('.answer-btn')
@@ -118,7 +120,10 @@ function quiz (num) {
     $('.answer-btn')
         .show()
     time = 10
-    let countDown = setInterval(timer, 1000)
+    if (isRunning === false) {
+        countDown = setInterval(timer, 1000);
+        isRunning = true;
+    }
     $('#timer-display')
         .text(time + ' Seconds Remaining')
     $('#question-display')
@@ -132,30 +137,34 @@ function quiz (num) {
     $('#answer-4')
         .text(questions[num].d)
     
-    const timeUp = setTimeout(isCorrect, 10000, "timeout", num)
+    timeUp = setTimeout(isCorrect, 10000, "timeout", num)
 
     //Click events for answer buttons
     $('#answer-1').on("click", function (){
         let userGuess = $('#answer-1').text()
-        clearInterval(countDown)
+        clearInterval(countDown);
+        isRunning = false;
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-2').on("click", function (){
         let userGuess = $('#answer-2').text()
         clearInterval(countDown);
+        isRunning = false;
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-3').on("click", function (){
         let userGuess = $('#answer-3').text()
-        clearInterval(countDown)
+        clearInterval(countDown);
+        isRunning = false;
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
     $('#answer-4').on("click", function (){
         let userGuess = $('#answer-4').text()
-        clearInterval(countDown)
+        clearInterval(countDown);
+        isRunning = false;
         clearTimeout(timeUp);
         isCorrect(userGuess, num);
     })
